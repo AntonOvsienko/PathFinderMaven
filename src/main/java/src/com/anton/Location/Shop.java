@@ -13,6 +13,7 @@ import static src.com.anton.Inventory.Weapon.weapon;
 
 public class Shop extends Inventory {
     public static void WeaponShop(Player player, HashMap<String, Weapon> weapon) {
+        System.out.println("Наличные деньги-" + player.getMoney());
         Visual.ShopWeaponVisual(weapon);
         while (true) {
             String x = DataInput.InputString().toLowerCase();
@@ -38,6 +39,7 @@ public class Shop extends Inventory {
     }
 
     public static void ArmorShop(Player player, HashMap<String, Armor> armor) {
+        System.out.println("Наличные деньги-" + player.getMoney());
         Visual.ShopArmorVisual(armor);
         while (true) {
             String x = DataInput.InputString().toLowerCase();
@@ -63,7 +65,7 @@ public class Shop extends Inventory {
     }
 
     public static void Sale(Player player){
-        int pointer=0;
+        int pointer;
 
         Visual.MyInventar(player);
         while(true){
@@ -87,7 +89,7 @@ public class Shop extends Inventory {
     }
 
     public static void ShopChoice (Player player){
-        int pointer=0;
+        int pointer;
 
         while(true){
             System.out.println("Выберите действие:");

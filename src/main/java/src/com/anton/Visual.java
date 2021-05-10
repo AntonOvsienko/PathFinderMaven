@@ -118,6 +118,7 @@ public class Visual {
     }
 
     public static void ShopWeaponVisual(HashMap<String, Weapon> weapon) {
+
         System.out.println("Купить оружие под номером:");
         System.out.println(" №|Наименование     | Вес |  Цена  | Максимальный дмг");
         System.out.println("=====================================================");

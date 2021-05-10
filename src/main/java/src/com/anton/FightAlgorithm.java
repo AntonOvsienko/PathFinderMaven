@@ -45,14 +45,14 @@ public class FightAlgorithm {
             }
             isLifePlayer = 0;
             isLifeEnemy = 0;
+
+
             for (Player x : listParticipation) {
-                if (x.isIDplayer()) {
+                if ((x.isIDplayer())) {
                     isLifePlayer++;
-                }
-                if (!x.isIDplayer()) {
+                } else {
                     isLifeEnemy++;
                 }
-
             }
             if (isLifePlayer == 0) {
                 System.out.println("Вы проиграли");
