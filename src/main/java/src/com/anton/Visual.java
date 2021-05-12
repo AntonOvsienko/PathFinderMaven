@@ -22,96 +22,110 @@ public class Visual {
 
         Collections.sort(player, IDComparator);
         for (int i = 0; i < player.size(); i++) {
-            if (player.get(i).isIDplayer()) {
-                System.out.print(GREEN);
-                System.out.print("\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
-                        "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557");
-                System.out.print(RESET);
-            } else {
-                System.out.print(RED);
-                System.out.print("    \u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
-                        "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
-                        "\u2550\u2550\u2557");
-                System.out.print(RESET);
+            if (player.get(i).isLife()){
+                if (player.get(i).isIDplayer()) {
+                    System.out.print(GREEN);
+                    System.out.print("\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
+                            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557");
+                    System.out.print(RESET);
+                } else {
+                    System.out.print(RED);
+                    System.out.print("    \u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
+                            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
+                            "\u2550\u2550\u2557");
+                    System.out.print(RESET);
+                }
             }
         }
         System.out.println("");
         for (int i = 0; i < player.size(); i++) {
-            if (player.get(i).isIDplayer()) {
-                System.out.print(GREEN);
-                System.out.printf("\u2551 %-14s \u2551", player.get(i).getName());
-                System.out.print(RESET);
-            } else {
-                System.out.print(RED);
-                System.out.printf("    \u2551 %-20s\u2551", player.get(i).getName());
-                System.out.print(RESET);
+            if (player.get(i).isLife()){
+                if (player.get(i).isIDplayer()) {
+                    System.out.print(GREEN);
+                    System.out.printf("\u2551 %-14s \u2551", player.get(i).getName());
+                    System.out.print(RESET);
+                } else {
+                    System.out.print(RED);
+                    System.out.printf("    \u2551 %-20s\u2551", player.get(i).getName());
+                    System.out.print(RESET);
+                }
             }
         }
         System.out.println("");
         for (int i = 0; i < player.size(); i++) {
-            if (player.get(i).isIDplayer()) {
-                System.out.print(GREEN);
-                System.out.print("\u2560\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
-                        "\u2550\u2550\u2550\u2550\u2550\u2563");
-                System.out.print(RESET);
-            } else {
-                System.out.print(RED);
-                System.out.print("    \u2560\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
-                        "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2563");
-                System.out.print(RESET);
+            if (player.get(i).isLife()){
+                if (player.get(i).isIDplayer()) {
+                    System.out.print(GREEN);
+                    System.out.print("\u2560\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
+                            "\u2550\u2550\u2550\u2550\u2550\u2563");
+                    System.out.print(RESET);
+                } else {
+                    System.out.print(RED);
+                    System.out.print("    \u2560\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
+                            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2563");
+                    System.out.print(RESET);
+                }
             }
         }
         System.out.println("");
         for (int i = 0; i < player.size(); i++) {
-            if (player.get(i).isIDplayer()) {
-                System.out.print(GREEN);
-                System.out.printf("\u2551 Health:%2d/%-4d \u2551", player.get(i).getHealth(), player.get(i).getHealthmax());
-                System.out.print(RESET);
-            } else {
-                System.out.print(RED);
-                System.out.printf("    \u2551 Health:%2d/%-10d\u2551", player.get(i).getHealth(), player.get(i).getHealthmax());
-                System.out.print(RESET);
+            if (player.get(i).isLife()){
+                if (player.get(i).isIDplayer()) {
+                    System.out.print(GREEN);
+                    System.out.printf("\u2551 Health:%2d/%-4d \u2551", player.get(i).getHealth(), player.get(i).getHealthmax());
+                    System.out.print(RESET);
+                } else {
+                    System.out.print(RED);
+                    System.out.printf("    \u2551 Health:%2d/%-10d\u2551", player.get(i).getHealth(), player.get(i).getHealthmax());
+                    System.out.print(RESET);
+                }
             }
         }
         System.out.println("");
         for (int i = 0; i < player.size(); i++) {
-            if (player.get(i).isIDplayer()) {
-                System.out.print(GREEN);
-                System.out.printf("\u2551 Атака макс:%-3d \u2551", player.get(i).getAttackmodificator
-                        (player.get(i).getLvl()) + 20);
-                System.out.print(RESET);
-            } else {
-                System.out.print(RED);
-                System.out.printf("    \u2551 Атака макс:%-9d\u2551", player.get(i).getAttackmodificator
-                        (player.get(i).getBasicmodificatorattack()) + 20);
-                System.out.print(RESET);
+            if (player.get(i).isLife()){
+                if (player.get(i).isIDplayer()) {
+                    System.out.print(GREEN);
+                    System.out.printf("\u2551 Атака макс:%-3d \u2551", player.get(i).getAttackmodificator
+                            (player.get(i).getLvl()) + 20);
+                    System.out.print(RESET);
+                } else {
+                    System.out.print(RED);
+                    System.out.printf("    \u2551 Атака макс:%-9d\u2551", player.get(i).getAttackmodificator
+                            (player.get(i).getBasicmodificatorattack()) + 20);
+                    System.out.print(RESET);
+                }
             }
         }
         System.out.println("");
         for (int i = 0; i < player.size(); i++) {
-            if (player.get(i).isIDplayer()) {
-                System.out.print(GREEN);
-                System.out.printf("\u2551 Защита:%-3d     \u2551", player.get(i).getDefense());
-                System.out.print(RESET);
-            } else {
-                System.out.print(RED);
-                System.out.printf("    \u2551 Защита:%-8d     \u2551", player.get(i).getDefense());
-                System.out.print(RESET);
+            if (player.get(i).isLife()){
+                if (player.get(i).isIDplayer()) {
+                    System.out.print(GREEN);
+                    System.out.printf("\u2551 Защита:%-3d     \u2551", player.get(i).getDefense());
+                    System.out.print(RESET);
+                } else {
+                    System.out.print(RED);
+                    System.out.printf("    \u2551 Защита:%-8d     \u2551", player.get(i).getDefense());
+                    System.out.print(RESET);
+                }
             }
         }
         System.out.println("");
         for (int i = 0; i < player.size(); i++) {
-            if (player.get(i).isIDplayer()) {
-                System.out.print(GREEN);
-                System.out.print("\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
-                        "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255D");
-                System.out.print(RESET);
-            } else {
-                System.out.print(RED);
-                System.out.print("    \u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
-                        "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
-                        "\u2550\u2550\u255D");
-                System.out.print(RESET);
+            if (player.get(i).isLife()){
+                if (player.get(i).isIDplayer()) {
+                    System.out.print(GREEN);
+                    System.out.print("\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
+                            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255D");
+                    System.out.print(RESET);
+                } else {
+                    System.out.print(RED);
+                    System.out.print("    \u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
+                            "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550" +
+                            "\u2550\u2550\u255D");
+                    System.out.print(RESET);
+                }
             }
         }
         System.out.println();
@@ -191,9 +205,16 @@ public class Visual {
     };
 
     public static void SequenceOfMoves(List<Player> list,int iterator){
-        for (Player x:list){
-            System.out.println(x.getName()+"-->");
-        }
 
+        System.out.println("Порядок ходов согласно инициативы");
+        for (int i=0;i<list.size()-1;i++){
+            if (i==iterator){
+                System.out.print(GREEN + list.get(i).getName() + RESET + "-->");
+            }else{
+                System.out.print(list.get(i).getName()+"-->");
+            }
+        }
+        System.out.print(list.get(list.size()-1).getName());
+        System.out.println();
     }
 }

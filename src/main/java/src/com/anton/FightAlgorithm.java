@@ -11,6 +11,8 @@ public class FightAlgorithm {
         int isLifePlayer;
         int isLifeEnemy;
         int count = 0;
+        boolean activeBattle=true;
+
         List<Player> listParticipation = new ArrayList<>();
         listParticipation.addAll(enemy);
         listParticipation.addAll(player);
@@ -23,44 +25,36 @@ public class FightAlgorithm {
                     return 0;
                 }
         });
-        while (true) {
+
+        while (activeBattle) {
             System.out.println("Раунд " + ++count);
-            Visual.SequenceOfMoves(listParticipation,count);
-            Visual.BattleVisual(listParticipation);
-            String[] textotals = new String[listParticipation.size()];
             for (int i = 0; i < listParticipation.size(); i++) {
+                Visual.SequenceOfMoves(listParticipation, i);
                 if (!listParticipation.get(i).isLife()) {
-                    textotals[i] = "";
                     continue;
                 }
-                textotals[i] = listParticipation.get(i).Hit(ListOpponent(listParticipation.get(i), listParticipation), listParticipation);
-            }
-            for (String x : textotals) {
-                System.out.println(x);
-            }
-            for (int i = 0; i < listParticipation.size(); i++) {
-                if (!listParticipation.get(i).isLife()) {
-                    listParticipation.remove(i);
-                }
-            }
-            isLifePlayer = 0;
-            isLifeEnemy = 0;
+                System.out.println(listParticipation.get(i).Hit(ListOpponent(listParticipation.get(i), listParticipation), listParticipation));
 
+                isLifePlayer = 0;
+                isLifeEnemy = 0;
 
-            for (Player x : listParticipation) {
-                if ((x.isIDplayer())) {
-                    isLifePlayer++;
-                } else {
-                    isLifeEnemy++;
+                for (Player x : listParticipation) {
+                    if (x.isIDplayer() && x.isLife()) {
+                        isLifePlayer++;
+                    } else if (!x.isIDplayer() && x.isLife()) {
+                        isLifeEnemy++;
+                    }
                 }
-            }
-            if (isLifePlayer == 0) {
-                System.out.println("Вы проиграли");
-                break;
-            }
-            if (isLifeEnemy == 0) {
-                System.out.println("Вы выиграли");
-                break;
+                if (isLifePlayer == 0) {
+                    System.out.println("Вы проиграли");
+                    activeBattle=false;
+                    break;
+                }
+                if (isLifeEnemy == 0) {
+                    System.out.println("Вы выиграли");
+                    activeBattle=false;
+                    break;
+                }
             }
         }
     }

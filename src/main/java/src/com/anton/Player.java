@@ -42,8 +42,8 @@ public class Player {
     private Inventory weaponequepleft;         //экипированное оружие ведущая рука
     private Inventory weaponequepright;         //экипированное оружие вспомогательная рука
     private Inventory armorequep;          //экипированная броня
-    private int money;                    //стартовые деньги
-    private ArrayList<Inventory> personthings; //личные вещи
+    private static int money;                    //стартовые деньги
+    private static ArrayList<Inventory> personthings; //личные вещи
     private ArrayList<String> typearmor; //тип носимой брони
     private ArrayList<String> typeweapon; //тип носимого оружия
     private boolean shield;                 //носит ли щит

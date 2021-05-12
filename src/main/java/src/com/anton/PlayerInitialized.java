@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class PlayerInitialized {
-    static Scanner scanner = new Scanner(System.in);
     static int bonuspoint = 15;
     static int number = 0;
     static int[] temp = new int[]{10, 10, 10, 10, 10, 10};
@@ -32,7 +31,7 @@ public class PlayerInitialized {
                                 character[5]);
                         return (E) men;
                     } else if (start == 2) {
-                        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("D:\\Java\\PathFinderMaven\\src\\main\\resources\\PersonCharact.bin"));
+                        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src\\main\\resources\\PersonCharact.bin"));
                         int[] character2 = (int[]) ois.readObject();
                         Warior men = new Warior(name, "Воин", character2[0], character2[1], character2[2], character2[3], character2[4],
                                 character2[5]);

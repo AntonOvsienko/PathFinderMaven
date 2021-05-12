@@ -14,7 +14,6 @@ import java.io.ObjectInputStream;
 import java.util.*;
 
 public class Warior extends Player {
-    private static Scanner scanner = new Scanner(System.in);
 
     public Warior(String name, String classPlayer, int strength, int dexterity, int costitution, int intellegence,
                   int wisdom, int charisma) {
@@ -83,9 +82,29 @@ public class Warior extends Player {
         setDefenceonround(0);
         setAtackonround(0);
         String results = "";
-        boolean run = true;
         int x = 0;
         int choice=0;
+
+        Visual.BattleVisual(all);
+
+        if (enemy.size() > 1) {
+            do {
+                System.out.println(getName() + " " + getHealth() + "/" + getHealthmax() + " выберите противника:");
+                for (int i = 0; i < enemy.size(); i++) {
+                    System.out.println((i + 1) + "." + enemy.get(i).getName() + "-" + enemy.get(i).getHealth() + "/" + enemy.get(i).getHealthmax());
+                }
+                x = DataInput.InputInteger();
+                if (x > enemy.size()) {
+                    System.out.println("Невереное число, не более " + enemy.size());
+                    continue;
+                }
+                x--;
+                break;
+            } while (true);
+        } else {
+            x = 0;
+        }
+
         while (true) {
             System.out.println(getName()+"("+ getClassPlayer() +")"+" выберите действие в бою");
             System.out.println("1.Полная атака (атака одноручным оружием или двумя одноручными со штрафом в 50% при броске кубика для оружия в левой руке)");
@@ -93,12 +112,10 @@ public class Warior extends Player {
             System.out.println("3.Глухая оборона + отхил(20%) без атаки");
             choice = DataInput.InputInteger();
             if (choice == 1) {
-                Visual.BattleVisual(all);
                 break;
             } else if (choice == 2) {
                 setDefenceonround(4);
                 setAtackonround(-4);
-                Visual.BattleVisual(all);
                 break;
             } else if (choice == 3) {
                 setDefenceonround(6);
@@ -113,26 +130,9 @@ public class Warior extends Player {
         }
         for (int z = 0; z < getTablemodificatorattack()[getLvl() - 1].length; z++) {
             int atmodificator = getTablemodificatorattack()[getLvl() - 1][z];
-            if (enemy.size() > 1) {
-                do {
-                    System.out.println(getName() + " " + getHealth() + "/" + getHealthmax() + " выберите противника:");
-                    for (int i = 0; i < enemy.size(); i++) {
-                        System.out.println((i + 1) + "." + enemy.get(i).getName() + "-" + enemy.get(i).getHealth() + "/" + enemy.get(i).getHealthmax());
-                    }
-                    x = DataInput.InputInteger();
-                    if (x > enemy.size()) {
-                        System.out.println("Невереное число, не более " + enemy.size());
-                        continue;
-                    }
-                    x--;
-                    run = false;
-                } while (run);
-            } else {
-                x = 0;
-            }
-
             int damage = 0;
             int attack = random.nextInt(20) + 1;
+
             if (attack == 20) {
                 damage = random.nextInt(getWeapondamage()) + 1 + getStrengthModify();
                 int attackdop = random.nextInt(20) + 1;

@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class HitSuccess {
     public static String hit() throws FileNotFoundException {
         Random random = new Random();
-        File file = new File("D:\\Java\\PathFinderMaven\\src\\main\\resources\\hitSuccess");
+        File file = new File("src\\main\\resources\\hitSuccess");
         Scanner scanner = new Scanner(file);
         List<String> hitSuc = new ArrayList<>();
         while (scanner.hasNextLine()) {
@@ -22,7 +22,7 @@ public class HitSuccess {
 
     public static String nohit() throws FileNotFoundException {
         Random random = new Random();
-        File file = new File("D:\\Java\\PathFinderMaven\\src\\main\\resources\\hitlose");
+        File file = new File("src\\main\\resources\\hitlose");
         Scanner scanner = new Scanner(file);
         List<String> hitSuc = new ArrayList<>();
         while (scanner.hasNextLine()) {
