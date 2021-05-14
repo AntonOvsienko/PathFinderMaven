@@ -1,7 +1,10 @@
 package src.com.anton;
 
+import src.com.anton.Inventory.Inventory;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +64,28 @@ public class FightAlgorithm {
 
     public static List<Player> ListOpponent(Player player, List<Player> list) {
         return list.stream().filter(s->s.isIDplayer()!=player.isIDplayer()).collect(Collectors.toList());
+    }
+
+    public static void AfterWin (List<Player> player, List<Player> enemy){
+        System.out.println("Итог сражения");
+
+        System.out.println("Деньги-"+player.get(0).getMoney() + "/+" +
+                enemy.stream().mapToInt(Player::getBonusmoney).sum());
+        player.get(0).setMoney(player.get(0).getMoney() +
+                enemy.stream().mapToInt(Player::getBonusmoney).sum());
+        for (Player x:player){
+        System.out.println(x.getName()+"(Lvl-"+ x.getLvl()+ ")"+ ", Опыт:"+
+                x.getExperience()+"/+"+ enemy.stream().mapToInt(Player::getExperience).sum() / player.size());
+        }
+        for (Player x:player){
+            x.setExperience(x.getExperience() +
+                    Math.round(enemy.stream().mapToInt(Player::getExperience).sum() / player.size()));
+        }
+        ArrayList <Inventory> troph = new ArrayList<>();
+        for (Player x:enemy){
+        troph.addAll(x.getTrophies());
+        }
+        Visual.ItemVisual(troph);
     }
 }
 

@@ -1,16 +1,10 @@
 package src.com.anton;
 
 import src.com.anton.Adventure.PreparationForHike;
-import src.com.anton.ClassPlayer.*;
-import src.com.anton.Inventory.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static src.com.anton.Inventory.Armor.*;
-import static src.com.anton.Inventory.Weapon.*;
-
 
 public class Start {
 

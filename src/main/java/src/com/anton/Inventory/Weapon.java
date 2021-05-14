@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class Weapon extends Inventory {
 
-
     public Weapon(String name, int cost, double weight, String type,int amount, int damage, int crit,
                   int bonusdefencearmor, int dexteryboundarylimit, int finestrengthdextery) {
         super(name, cost, weight, type,amount,damage, crit,bonusdefencearmor,dexteryboundarylimit,finestrengthdextery);

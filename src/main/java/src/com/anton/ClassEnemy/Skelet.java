@@ -1,6 +1,8 @@
 package src.com.anton.ClassEnemy;
 
 import src.com.anton.Inventory.Armor;
+import src.com.anton.Inventory.Inventory;
+import src.com.anton.Inventory.Item;
 import src.com.anton.Inventory.Weapon;
 import src.com.anton.Player;
 import src.com.anton.TextBattle.HitSuccess;
@@ -9,13 +11,13 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Skelet extends Player {
-    private static Scanner scanner = new Scanner(System.in);
     Random random = new Random();
     int defence;
 
     public Skelet() {
 
         List<String> surname = Arrays.asList("Cтарый", "Ржавый", "Фиолетовый", "Зелёный", "Трухлявый");
+        ArrayList<Inventory> trophies = new ArrayList<>();
 
         setClassPlayer("Скелет");
         setName(surname.get(random.nextInt(surname.size() - 1)) + " скелет");
@@ -26,6 +28,8 @@ public class Skelet extends Player {
         setCharisma(12 + random.nextInt(3) - 1);
         setIntellegence(0);
         setWisdom(10 + random.nextInt(3) - 1);
+        setBonusmoney(1000);
+        setExperience(50);
 
         setHealth(4);
         setHealthmax(getHealth());
@@ -45,13 +49,27 @@ public class Skelet extends Player {
         action.put("удар когтями", new Integer[]{1, 5,20});
         action.put("двойной удар когтями", new Integer[]{2, 6,20});
         setWeapon(action);
+
+        int indextrophies=random.nextInt(10);
+        if (indextrophies<5) {
+            trophies.add(new Item("боттл",5,6,"предмет",1));
+        } else if (indextrophies<8) {
+            trophies.add(new Item("боттл",5,6,"предмет",1));
+            trophies.add(new Item("медалька",5,6,"предмет",1));
+        } else {
+            trophies.add(new Item("боттл",5,6,"предмет",1));
+            trophies.add(new Item("медалька",5,6,"предмет",1));
+            trophies.add(new Item("меч",5,6,"предмет",1));
+        }
+
+        setTrophies(trophies);
     }
 
     public String Hit(List<Player> enemy, List<Player> all) throws FileNotFoundException {
         setDefenceonround(0);
         setAtackonround(0);
         int damage = 0;
-        String results = "";
+        String results;
         int i = 0;
         int tableID = random.nextInt(getWeapon().size());
         String[] tableIDstring = new String[getWeapon().size()];
@@ -66,8 +84,7 @@ public class Skelet extends Player {
             tableIDinteger[i] = x.getValue();
             i++;
         }
-        boolean run = true;
-        int x = 0;
+        int x;
         if (enemy.size() > 1) {
             x = random.nextInt(enemy.size());
         } else {

@@ -37,13 +37,15 @@ public class Player {
     private HashMap<String, Integer[]> weapon;  //виды действий атаки
     private int experience;              //текущий опыт (персонажа и противника который можно получить после его убийства)
     private int experiencemax;           //максимальный опыт на текущем уровне
-    private static int lvl;                     //текущий лвл игрока или партии
+    private int lvl;                     //текущий лвл игрока или партии
     private ArrayList<Integer> exptable;   //таблица получения опыта
     private Inventory weaponequepleft;         //экипированное оружие ведущая рука
     private Inventory weaponequepright;         //экипированное оружие вспомогательная рука
     private Inventory armorequep;          //экипированная броня
     private static int money;                    //стартовые деньги
+    private int bonusmoney;               //деньги падающие с мобов
     private static ArrayList<Inventory> personthings; //личные вещи
+    private ArrayList<Inventory> trophies;     //вещи падающие с мобов
     private ArrayList<String> typearmor; //тип носимой брони
     private ArrayList<String> typeweapon; //тип носимого оружия
     private boolean shield;                 //носит ли щит
@@ -287,14 +289,6 @@ public class Player {
         this.exptable = exptable;
     }
 
-    public int getKO() {
-        return KO;
-    }
-
-    public void setKO(int KO) {
-        this.KO = KO;
-    }
-
     public int getInitiative() {
         return initiative;
     }
@@ -401,6 +395,22 @@ public class Player {
 
     public void setTypeweapon(ArrayList<String> typeweapon) {
         this.typeweapon = typeweapon;
+    }
+
+    public int getBonusmoney() {
+        return bonusmoney;
+    }
+
+    public void setBonusmoney(int bonusmoney) {
+        this.bonusmoney = bonusmoney;
+    }
+
+    public ArrayList<Inventory> getTrophies() {
+        return trophies;
+    }
+
+    public void setTrophies(ArrayList<Inventory> trophies) {
+        this.trophies = trophies;
     }
 
 

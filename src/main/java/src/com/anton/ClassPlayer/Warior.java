@@ -38,7 +38,7 @@ public class Warior extends Player {
         setExperience(getExptable().get(0));      //начальный опыт
         setExperiencemax(getExptable().get(1));   //опыт следующего уровня
         setInitiative(getDexterity());            //Инициатива;
-        setMoney(175000);
+        setMoney(75000);
         setPersonthings(new ArrayList<>());
         setWeaponequepleft(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0,0,0));
         setWeaponequepright(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0,0,0));

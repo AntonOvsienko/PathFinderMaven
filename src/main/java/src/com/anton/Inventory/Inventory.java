@@ -31,6 +31,20 @@ public class Inventory {
         this.finestrengthdextery = finestrengthdextery;
     }
 
+    public Inventory(String name, int cost, double weight) {
+        this.name = name;
+        this.cost = cost;
+        this.weight = weight;
+    }
+
+    public Inventory(String name, int cost, double weight, String type, int amount) {
+        this.name = name;
+        this.cost = cost;
+        this.weight = weight;
+        this.amount = amount;
+        this.type = type;
+    }
+
 
     public double getWeight() {
         return weight;
@@ -112,5 +126,10 @@ public class Inventory {
         this.finestrengthdextery = finestrengthdextery;
     }
 
-
+    @Override
+    public String toString() {
+        return "(вес-" + weight
+                + ", цена-" + cost + ")"
+                ;
+    }
 }

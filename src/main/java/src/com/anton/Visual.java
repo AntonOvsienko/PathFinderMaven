@@ -4,10 +4,8 @@ import src.com.anton.Inventory.Armor;
 import src.com.anton.Inventory.Inventory;
 import src.com.anton.Inventory.Weapon;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Visual {
     public static final String RESET = "\u001B[0m";
@@ -216,5 +214,21 @@ public class Visual {
         }
         System.out.print(list.get(list.size()-1).getName());
         System.out.println();
+    }
+
+    public static void ItemVisual(ArrayList<Inventory> inventory){
+        int count;
+        HashMap<String, Inventory> itemsort=new HashMap<>();
+        for (Inventory x:inventory){
+            itemsort.put(x.getName(),new Inventory(x.getName(), x.getCost(), x.getWeight(), x.getType(), 0));
+        }
+
+        System.out.println("Предметы:");
+        for (Map.Entry<String,Inventory> x:itemsort.entrySet()){
+            if (x.getValue().getType().equalsIgnoreCase("предмет")){
+                System.out.println(x.getKey() + "-" + x.getValue().getAmount() + "шт/" + x.getValue());
+            }
+        }
+
     }
 }
