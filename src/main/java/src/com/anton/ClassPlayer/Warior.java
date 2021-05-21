@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Warior extends Player {
 
@@ -37,15 +38,16 @@ public class Warior extends Player {
                 2550000, 3600000)));   //список опыта
         setExperience(getExptable().get(0));      //начальный опыт
         setExperiencemax(getExptable().get(1));   //опыт следующего уровня
-        setInitiative(getDexterity());            //Инициатива;
-        setMoney(75000);
-        setPersonthings(new ArrayList<>());
-        setWeaponequepleft(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0,0,0));
-        setWeaponequepright(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0,0,0));
-        setArmorequep(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0,0,0));
-        setTypearmor(new ArrayList<>(Arrays.asList("Лёгкий", "Щит")));
-        setTypeweapon(new ArrayList<>(Arrays.asList("Одноручное")));
+        setInitiative(getDexterity());            //Инициатива
+        setMoney(getMoney()+75000);               //Общие деньги
+        setPersonthings(new ArrayList<>());       //Общие предметы
+        setWeaponequepleft(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0));
+        setWeaponequepright(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0));
+        setArmorequep(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0));
+        setTypearmor(new ArrayList<>(Arrays.asList("Лёгкий","Средний","Тяжёлый", "Щит")));
+        setTypeweapon(new ArrayList<>(Arrays.asList("Одноручное","Полуторное","Двуручное")));
         setShield(true);
+        setRange("Ближний");
     }
 
     public static Warior initialized(String name) throws IOException, ClassNotFoundException {
@@ -77,33 +79,197 @@ public class Warior extends Player {
         return null;
     }
 
+    public void EquopmentPosition(){
+
+        while (true){
+        System.out.println("Выберите вашу роль в бою (по умолчанию) - её можно изменить");
+        System.out.println("0.Выход");
+        System.out.println("1.Боец первой линии-меч(одноручный или полуторный)+щит");
+        System.out.println("2.Боец первой линии-меч(одноручный)+меч(одноручный)");
+        System.out.println("3.Боец первой линии-меч(полуторный или двуручный)");
+        System.out.println("4.Боец второй линии-метательное");
+        int x=DataInput.InputInteger(4);
+            if (x==0){
+                break;
+            } else if (x==1){
+                this.setRange("Ближний");
+                this.EquipmentRightHand(getPersonthings().stream()
+                        .filter(y -> y.getType().equals("Одноручное")||y.getType().equals("Полуторное"))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+                this.EquipmentArmor(getPersonthings().stream()
+                        .filter(y -> y.getType().equals("Лёгкий")||y.getType().equals("Средний")||y.getType().equals("Тяжёлый"))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+                this.EquipmentShield(getPersonthings().stream()
+                        .filter(y -> y.getType().equals("Щит"))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+            } else if (x==2){
+                this.setRange("Ближний");
+                this.EquipmentRightHand(getPersonthings().stream()
+                        .filter(y -> y.getType().equals("Одноручное"))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+                this.EquipmentLeftHand(getPersonthings().stream()
+                        .filter(y -> y.getType().equals("Одноручное"))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+                this.EquipmentArmor(getPersonthings().stream()
+                        .filter(y -> y.getType().equals("Лёгкий")||y.getType().equals("Средний")||y.getType().equals("Тяжёлый"))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+            } else if (x==3){
+                this.setRange("Ближний");
+                this.EquipmentRightHand(getPersonthings().stream()
+                        .filter(y -> y.getType().equals("Полуторное")||y.getType().equals("Двуручное"))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+                this.EquipmentArmor(getPersonthings().stream()
+                        .filter(y -> y.getType().equals("Лёгкий")||y.getType().equals("Средний")||y.getType().equals("Тяжёлый"))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+            } else if (x==4){
+                this.setRange("Дальний");
+            }
+        }
+    }
+
+    public void EquipmentLeftHand(ArrayList<Inventory> lefthand){
+        Inventory tempweaponequepleft = new Inventory(getWeaponequepleft().getName(),getWeaponequepleft().getCost(),
+                getWeaponequepleft().getWeight(),getWeaponequepleft().getType(),getWeaponequepleft().getAmount(),
+                getWeaponequepleft().getDamage(),getWeaponequepleft().getCrit(),getWeaponequepleft().getInitiativeBonus());
+
+        System.out.println("0.Освободить");
+        for (int i = 0; i < lefthand.size(); i++) {
+            System.out.println((i + 1) + "." + lefthand.get(i).getName());
+        }
+        int choice = DataInput.InputInteger(lefthand.size());
+        if (choice==0){
+            lefthand.add(getWeaponequepleft());
+            setWeaponequepleft(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0));
+        } else{
+            setWeaponequepleft(lefthand.get(choice-1));
+            lefthand.remove(choice-1);
+        }
+
+        if (!tempweaponequepleft.equals(getWeaponequepleft())){
+            for (int i=0;i<getPersonthings().size();i++){
+                if (getPersonthings().get(i).getName().equals(getWeaponequepleft().getName())){
+                    if (!tempweaponequepleft.getName().equals("Пусто")){
+                        getPersonthings().add(tempweaponequepleft);
+                    }
+                }
+                getPersonthings().remove(i);
+                break;
+            }
+        }
+    }
+
+    public void EquipmentRightHand(ArrayList<Inventory> righthand){
+        Inventory tempweaponequepright = new Inventory(getWeaponequepright().getName(),getWeaponequepright().getCost(),
+                getWeaponequepright().getWeight(),getWeaponequepright().getType(),getWeaponequepright().getAmount(),
+                getWeaponequepright().getDamage(),getWeaponequepright().getCrit(),getWeaponequepright().getInitiativeBonus());
+
+        System.out.println("0.Освободить");
+        for (int i = 0; i < righthand.size(); i++) {
+            System.out.println((i + 1) + "." + righthand.get(i).getName());
+        }
+        int choice = DataInput.InputInteger(righthand.size());
+        if (choice==0){
+            righthand.add(getWeaponequepright());
+            setWeaponequepright(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0));
+        } else{
+            setWeaponequepright(righthand.get(choice-1));
+            righthand.remove(choice-1);
+        }
+
+        if (!tempweaponequepright.equals(getWeaponequepright())){
+            for (int i=0;i<getPersonthings().size();i++){
+                if (getPersonthings().get(i).getName().equals(getWeaponequepright().getName())){
+                    if (!tempweaponequepright.getName().equals("Пусто")){
+                        getPersonthings().add(tempweaponequepright);
+                    }
+                }
+                getPersonthings().remove(i);
+                break;
+            }
+        }
+    }
+
+    public void EquipmentShield(ArrayList<Inventory> shield){
+        Inventory tempweaponequepleft = new Inventory(getWeaponequepleft().getName(),getWeaponequepleft().getCost(),
+                getWeaponequepleft().getWeight(),getWeaponequepleft().getType(),getWeaponequepleft().getAmount(),
+                getWeaponequepleft().getDamage(),getWeaponequepleft().getCrit(),getWeaponequepleft().getInitiativeBonus());
+
+        System.out.println("0.Освободить");
+        for (int i = 0; i < shield.size(); i++) {
+            System.out.println((i + 1) + "." + shield.get(i).getName());
+        }
+        int choice = DataInput.InputInteger(shield.size());
+        if (choice==0){
+            shield.add(getWeaponequepleft());
+            setWeaponequepleft(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0));
+        } else{
+            setWeaponequepleft(shield.get(choice-1));
+            shield.remove(choice-1);
+        }
+
+        if (!tempweaponequepleft.equals(getWeaponequepleft())){
+            for (int i=0;i<getPersonthings().size();i++){
+                if (getPersonthings().get(i).getName().equals(getWeaponequepleft().getName())){
+                    if (!tempweaponequepleft.getName().equals("Пусто")){
+                        getPersonthings().add(tempweaponequepleft);
+                    }
+                }
+                getPersonthings().remove(i);
+                break;
+            }
+        }
+    }
+
+    public void EquipmentArmor(ArrayList<Inventory> fullequpment){
+        Inventory temparmorequep = new Inventory(getArmorequep().getName(),getArmorequep().getCost(),
+                getArmorequep().getWeight(),getArmorequep().getType(),getArmorequep().getAmount(),
+                getArmorequep().getDamage(),getArmorequep().getCrit(),getArmorequep().getBonusdefencearmor(),
+                getArmorequep().getDexteryboundarylimit(),getArmorequep().getFinestrengthdextery());
+
+        System.out.println("0.Освободить");
+        for (int i = 0; i < fullequpment.size(); i++) {
+            System.out.println((i + 1) + "." + fullequpment.get(i).getName());
+        }
+        int choice=DataInput.InputInteger(fullequpment.size());
+        if (choice==0){
+            fullequpment.add(getArmorequep());
+            setArmorequep(new Inventory("Пусто", 0, 0, "0", 0, 0, 0,0,0,0));
+        } else{
+            setArmorequep(fullequpment.get(choice-1));
+            fullequpment.remove(choice-1);
+        }
+
+        if (!temparmorequep.equals(getArmorequep())) {
+            for (int i = 0; i < getPersonthings().size(); i++) {
+                if (getPersonthings().get(i).getName().equals(getArmorequep().getName())) {
+                    if (!temparmorequep.getName().equals("Пусто")) {
+                        getPersonthings().add(temparmorequep);
+                    }
+                    getPersonthings().remove(i);
+                    break;
+                }
+            }
+    }
+    }
+
     public String Hit(List<Player> enemy, List<Player> all) throws FileNotFoundException {
         Random random = new Random();
-        setDefenceonround(0);
-        setAtackonround(0);
         String results = "";
         int x = 0;
         int choice=0;
-
-        Visual.BattleVisual(all);
-
-        if (enemy.size() > 1) {
-            do {
-                System.out.println(getName() + " " + getHealth() + "/" + getHealthmax() + " выберите противника:");
-                for (int i = 0; i < enemy.size(); i++) {
-                    System.out.println((i + 1) + "." + enemy.get(i).getName() + "-" + enemy.get(i).getHealth() + "/" + enemy.get(i).getHealthmax());
-                }
-                x = DataInput.InputInteger();
-                if (x > enemy.size()) {
-                    System.out.println("Невереное число, не более " + enemy.size());
-                    continue;
-                }
-                x--;
-                break;
-            } while (true);
+        List<Player> listOnlyPlayer=new ArrayList<>();
+        if (getRange().equals("Ближний")){
+            if (enemy.stream().anyMatch(t->t.getRange().equals("Ближний"))){
+            listOnlyPlayer=enemy.stream()
+                    .filter(t->t.getRange().equals("Ближний"))
+                    .collect(Collectors.toList());
+            } else {
+                listOnlyPlayer=enemy;
+            }
         } else {
-            x = 0;
+            listOnlyPlayer=enemy;
         }
+        Visual.BattleVisual(all);
 
         while (true) {
             System.out.println(getName()+"("+ getClassPlayer() +")"+" выберите действие в бою");
@@ -114,11 +280,11 @@ public class Warior extends Player {
             if (choice == 1) {
                 break;
             } else if (choice == 2) {
-                setDefenceonround(4);
-                setAtackonround(-4);
+                setDefenceonround("Осторожная атака","4","1");
+                setAtackonround("Осторожная атака","-4","1");
                 break;
             } else if (choice == 3) {
-                setDefenceonround(6);
+                setDefenceonround("Гл.оборона","6","1");
                 setHealth(getHealth() + (int) Math.round((double) getHealthmax() * 20 / 100));
                 if (getHealth() > getHealthmax()) {
                     setHealth(getHealthmax());
@@ -128,6 +294,23 @@ public class Warior extends Player {
                 System.out.println("Цифра вне диапазона");
             }
         }
+
+        if (listOnlyPlayer.size() > 1) {
+            System.out.println(getName() + " " + getHealth() + "/" + getHealthmax() + " выберите противника:");
+            for (int i = 0; i < listOnlyPlayer.size(); i++) {
+                if (listOnlyPlayer.get(i).isLife()){
+                    System.out.println((i + 1) + "." + listOnlyPlayer.get(i).getName() + "-"
+                        + listOnlyPlayer.get(i).getHealth() + "/" + listOnlyPlayer.get(i).getHealthmax()
+                        + "(" + (100-enemy.get(i).getDefense()*100/(this.getAttackmodificator
+                            (this.getLvl()) + 20))+ "%)");
+                }
+            }
+                x = DataInput.InputInteger(listOnlyPlayer.size());
+                x--;
+        } else {
+            x = 0;
+        }
+
         for (int z = 0; z < getTablemodificatorattack()[getLvl() - 1].length; z++) {
             int atmodificator = getTablemodificatorattack()[getLvl() - 1][z];
             int damage = 0;

@@ -22,9 +22,8 @@ public class Shop extends Inventory {
                 if (x.equals(entry.getKey())) {
                         player.getPersonthings().add(new Weapon(weapon.get(x).getName(),
                                 weapon.get(x).getCost(), weapon.get(x).getWeight(), weapon.get(x).getType(),
-                                weapon.get(x).getAmount(),weapon.get(x).getDamage(), weapon.get(x).getCrit(),
-                                weapon.get(x).getBonusdefencearmor(), weapon.get(x).getDexteryboundarylimit(),
-                                weapon.get(x).getFinestrengthdextery()));
+                                weapon.get(x).getAmount(),weapon.get(x).getDamage(), weapon.get(x).getCrit()
+                                ,weapon.get(x).getInitiativeBonus()));
                     player.setMoney(player.getMoney() - weapon.get(x).getCost());
                 } else {
                     count++;
@@ -48,9 +47,8 @@ public class Shop extends Inventory {
                 if (x.equalsIgnoreCase(entry.getKey())) {
                         player.getPersonthings().add(new Armor(armor.get(x).getName(),
                                 armor.get(x).getCost(), armor.get(x).getWeight(), armor.get(x).getType(),
-                                armor.get(x).getAmount(),armor.get(x).getDamage(), armor.get(x).getCrit(),
-                                armor.get(x).getBonusdefencearmor(), armor.get(x).getDexteryboundarylimit(),
-                                armor.get(x).getFinestrengthdextery()));
+                                armor.get(x).getAmount(), armor.get(x).getBonusdefencearmor(),
+                                armor.get(x).getDexteryboundarylimit(), armor.get(x).getFinestrengthdextery()));
                     player.setMoney(player.getMoney() - armor.get(x).getCost());
                 } else {
                     count++;
@@ -98,7 +96,7 @@ public class Shop extends Inventory {
             System.out.println("3.Посмотреть инвентарь(снять/одеть экипировку)");
             System.out.println("4.Продать предмет из инвентаря");
             System.out.println("5.Выход");
-            pointer= DataInput.InputInteger();
+            pointer = DataInput.InputInteger();
             if (pointer==1){
                 Shop.WeaponShop(player,weapon);
             }else if (pointer==2){

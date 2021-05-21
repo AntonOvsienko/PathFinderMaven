@@ -39,10 +39,11 @@ public class Skelet extends Player {
         setLife(true);
         setIDplayer(false);
         setLvl(1);
+        setRange("Ближний");
         setWeaponequepleft(new Weapon("Пусто",0,0,"0",0,0,0,
-                0,0,0));
-        setWeaponequepright(new Weapon("Сломанный скирт",0,0,"одноручное",0,6,20,0,0,0));
-        setArmorequep(new Armor("Пусто",0,0,"0",0,0,0,0,0,0));
+                0));
+        setWeaponequepright(new Weapon("Сломанный скирт",0,0,"одноручное",0,6,20,0));
+        setArmorequep(new Armor("Пусто",0,0,"0",0,0,0,0));
 
         HashMap<String, Integer[]> action = new HashMap<>();
         action.put(getWeaponequepright().getName(), new Integer[]{0, getWeaponequepright().getDamage(),getWeaponequepright().getCrit()});
@@ -63,11 +64,12 @@ public class Skelet extends Player {
         }
 
         setTrophies(trophies);
+        setRange("ближний");
     }
 
     public String Hit(List<Player> enemy, List<Player> all) throws FileNotFoundException {
-        setDefenceonround(0);
-        setAtackonround(0);
+        setDefenceonround("0","0","0");
+        setAtackonround("0","0","0");
         int damage = 0;
         String results;
         int i = 0;

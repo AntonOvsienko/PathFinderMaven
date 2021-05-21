@@ -1,12 +1,14 @@
 package src.com.anton;
 
 import src.com.anton.Inventory.Inventory;
+import src.com.anton.Routine.DataInput;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Player {
 
@@ -39,22 +41,30 @@ public class Player {
     private int experiencemax;           //максимальный опыт на текущем уровне
     private int lvl;                     //текущий лвл игрока или партии
     private ArrayList<Integer> exptable;   //таблица получения опыта
-    private Inventory weaponequepleft;         //экипированное оружие ведущая рука
-    private Inventory weaponequepright;         //экипированное оружие вспомогательная рука
+    private Inventory weaponequepleft;         //экипированное оружие вспомогательная рука
+    private Inventory weaponequepright;         //экипированное оружие ведущая рука
     private Inventory armorequep;          //экипированная броня
-    private static int money;                    //стартовые деньги
+    private static int money=0;                    //стартовые деньги
     private int bonusmoney;               //деньги падающие с мобов
     private static ArrayList<Inventory> personthings; //личные вещи
     private ArrayList<Inventory> trophies;     //вещи падающие с мобов
-    private ArrayList<String> typearmor; //тип носимой брони
-    private ArrayList<String> typeweapon; //тип носимого оружия
+    private ArrayList<String> typearmor;       //тип носимой брони
+    private ArrayList<String> typeweapon;     //тип носимого оружия
     private boolean shield;                 //носит ли щит
+    private String range;                   //Ближний или дальний бой
 
-    private int KO;                      //Коэффициент опасности
     private int initiative;              //Инициатива противника
 
     private int defenceonround;          //доп защита на раунд
     private int atackonround;            //доп атака на раунд
+    private int damageround;             //доп дамаг на раунд
+    private String[][] defencedescription=new String[][]{{"0","0","0"},
+            {"0","0","0"},{"0","0","0"}}; //таблица эффектов игрока: защита [описание][значение][кол-во ходов]
+    private String[][] atackdescription=new String[][]{{"0","0","0"},
+            {"0","0","0"},{"0","0","0"}}; //таблица эффектов игрока: атака [описание][значение][кол-во ходов]
+    private String[][] damagedescription=new String[][]{{"0","0","0"},
+            {"0","0","0"},{"0","0","0"}}; //таблица эффектов игрока: дамаг [описание][значение][кол-во ходов]
+
 
     public Player(){
     }
@@ -69,6 +79,113 @@ public class Player {
         this.intellegence = intellegence;
         this.wisdom = wisdom;
         this.charisma = charisma;
+    }
+
+    public void EquopmentPosition() {
+    }
+
+    public void EquipmentLeftHand(){
+
+    }
+
+    public void EquipmentRightHand(){
+
+    }
+
+    public void EquipmentShield(){
+
+    }
+
+    public void EquipmentArmor(){
+
+    }
+
+    public int getDefenceonround() {
+        int sumdeffence=0;
+         for (int i=0;i<3;i++){
+             sumdeffence+=Integer.valueOf(getDefencedescription()[i][1]);
+         }
+         return sumdeffence;
+    }
+
+    public void setDefenceonround(String descritopn,String defenceonround,String count) {
+        for (int i=0;i<3;i++){
+            if (descritopn.equals(getDefencedescription()[i][0])){
+                String temp=String.valueOf(Integer.valueOf(count)+Integer.valueOf(getDefencedescription()[i][2]));
+                getDefencedescription()[i][2]=temp;
+                return;
+            }
+        }
+        for (int i=0;i<3;i++){
+            if (getDefencedescription()[i][0].equals("0")){
+                getDefencedescription()[i][0]=descritopn;
+                getDefencedescription()[i][1]=defenceonround;
+                getDefencedescription()[i][2]=count;
+                return;
+            }
+        }
+    }
+
+    public int getAtackonround() {
+        int sumatack=0;
+        for (int i=0;i<3;i++){
+            sumatack+=Integer.valueOf(getAtackdescription()[i][1]);
+        }
+        return sumatack;
+    }
+
+    public void setAtackonround(String descritopn,String atackonround,String count) {
+        for (int i=0;i<3;i++){
+            if (descritopn.equals(getAtackdescription()[i][0])){
+                String temp=String.valueOf(Integer.valueOf(count)+Integer.valueOf(getAtackdescription()[i][2]));
+                getAtackdescription()[i][2]=temp;
+                return;
+            }
+        }
+        for (int i=0;i<3;i++){
+            if (getAtackdescription()[i][0].equals("0")){
+                getAtackdescription()[i][0]=descritopn;
+                getAtackdescription()[i][1]=atackonround;
+                getAtackdescription()[i][2]=count;
+                return;
+            }
+        }
+    }
+
+    public int getDamageround() {
+        int sumdamage=0;
+        for (int i=0;i<3;i++){
+            sumdamage+=Integer.valueOf(getDamagedescription()[i][1]);
+        }
+        return sumdamage;
+    }
+
+    public void setDamageround(int damageround) {
+        this.damageround = damageround;
+    }
+
+    public String[][] getDefencedescription() {
+        return defencedescription;
+    }
+
+    public void setDefencedescription(String[][] defencedescription) {
+        this.defencedescription = defencedescription;
+    }
+
+    public String[][] getAtackdescription() {
+        return atackdescription;
+    }
+
+    public void setAtackdescription(String[][] atackdescription) {
+        this.atackdescription = atackdescription;
+    }
+
+    public String[][] getDamagedescription() {
+        return damagedescription;
+    }
+
+    public void setDamagedescription(String[][] damagedescription) {
+        this.damagedescription = damagedescription;
     }
 
     public String getName() {
@@ -309,22 +426,6 @@ public class Player {
         this.basehealth = basehealth;
     }
 
-    public int getDefenceonround() {
-        return defenceonround;
-    }
-
-    public void setDefenceonround(int defenceonround) {
-        this.defenceonround = defenceonround;
-    }
-
-    public int getAtackonround() {
-        return atackonround;
-    }
-
-    public void setAtackonround(int atackonround) {
-        this.atackonround = atackonround;
-    }
-
     public int[][] getTablemodificatorattack() {
         return tablemodificatorattack;
     }
@@ -434,4 +535,14 @@ public class Player {
     public void Heals(){
 
     }
+
+    public String getRange() {
+        return range;
+    }
+
+    public void setRange(String range) {
+        this.range = range;
+    }
+
+
 }

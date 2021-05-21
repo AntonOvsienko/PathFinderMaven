@@ -12,6 +12,7 @@ public class Inventory {
     private int bonusdefencearmor;
     private int dexteryboundarylimit;
     private int finestrengthdextery;
+    private int initiativeBonus;
 
     public Inventory() {
 
@@ -29,6 +30,18 @@ public class Inventory {
         this.bonusdefencearmor = bonusdefencearmor;
         this.dexteryboundarylimit = dexteryboundarylimit;
         this.finestrengthdextery = finestrengthdextery;
+    }
+
+    public Inventory(String name, int cost, double weight, String type,int amount, int damage,
+                     int crit,int initiativeBonus) {
+        this.name = name;
+        this.cost = cost;
+        this.weight = weight;
+        this.damage = damage;
+        this.type = type;
+        this.crit = crit;
+        this.amount = amount;
+        this.initiativeBonus=initiativeBonus;
     }
 
     public Inventory(String name, int cost, double weight) {
@@ -126,10 +139,30 @@ public class Inventory {
         this.finestrengthdextery = finestrengthdextery;
     }
 
+    public int getInitiativeBonus() {
+        return initiativeBonus;
+    }
+
+    public void setInitiativeBonus(int initiativeBonus) {
+        this.initiativeBonus = initiativeBonus;
+    }
+
     @Override
     public String toString() {
         return "(вес-" + weight
                 + ", цена-" + cost + ")"
                 ;
+    }
+
+    public void EquipmentLeftHand(){
+
+    }
+
+    public void EquipmentRightHand(){
+
+    }
+
+    public void FullEquipment(){
+
     }
 }

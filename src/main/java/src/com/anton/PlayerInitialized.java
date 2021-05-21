@@ -1,6 +1,8 @@
 package src.com.anton;
 
 import src.com.anton.ClassPlayer.Warior;
+import src.com.anton.Inventory.Armor;
+import src.com.anton.Inventory.Weapon;
 import src.com.anton.Routine.DataInput;
 
 import java.io.*;
@@ -153,6 +155,28 @@ public class PlayerInitialized {
         }else for(int i=0;i<count;i++){
             party.add(Initial());
         }
+        party.get(0).setWeaponequepleft(new Weapon("Лёгкая булава", 12000, 4, "Одноручное", 1,
+                6, 20,0));
+        party.get(0).setWeaponequepright(new Weapon("Лёгкая булава", 12000, 4, "Одноручное", 1,
+                6, 20,0));
+        party.get(0).setArmorequep(new Armor("Сыромятный доспех", 15000, 25, "Средний", 1,
+                 4,4,-3));
+        party.get(1).setWeaponequepright(new Weapon("Длинное копье", 8000, 6, "Двуручное", 1,
+                8, 20,0));
+        party.get(1).setArmorequep(new Armor("Стёганный доспех", 500, 10, "Лёгкий", 1,
+                1,8,0));
+        party.get(2).setWeaponequepleft(new Armor("Баклер", 500, 5, "Щит", 1,
+                1,0,-1));
+        party.get(2).setWeaponequepright(new Weapon("Рапира", 20000, 2, "Полуторное", 1,
+                6, 18,0));
+        party.get(2).setArmorequep(new Armor("Баклер", 500, 5, "Щит", 1,
+                1,0,-1));
+        party.get(3).setWeaponequepleft(new Weapon("Лёгкая булава", 12000, 4, "Одноручное", 1,
+                6, 20,0));
+        party.get(3).setWeaponequepright(new Weapon("Серп", 6000, 2, "Одноручное", 1,
+                6, 20,0));
+        party.get(3).setArmorequep(new Armor("Сыромятный доспех", 15000, 25, "Средний", 1,
+                4,4,-3));
     }
 
 

@@ -9,7 +9,7 @@ public class DataInput {
         while (true) {
             try {
                 String xtemp = scanner.nextLine();
-                return Integer.parseInt(xtemp);
+                return Math.abs(Integer.parseInt(xtemp));
             } catch (NumberFormatException e) {
                 System.out.println("Вы ввели не число");
                 continue;
@@ -21,7 +21,7 @@ public class DataInput {
         while (true) {
             try {
                 String xtemp = scanner.nextLine();
-                int x = Integer.parseInt(xtemp);
+                int x = Math.abs(Integer.parseInt(xtemp));
                 if (x > size) {
                     System.out.println("Число вне диапазона");
                     continue;

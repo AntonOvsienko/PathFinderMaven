@@ -32,9 +32,11 @@ public class PreparationForHike {
 
         while(true){
             System.out.println("Выберите действие:");
-            System.out.println("1.Посмотреть инвентарь");
+            System.out.println("1.Посмотреть инвентарь/Переодеть");
             System.out.println("2.Зайти в лавку");
-            System.out.println("3.В путь");
+            System.out.println("3.Посмотреть экипировку бойцов");
+            System.out.println("4.В путь");
+
             pointer = DataInput.InputInteger();
             if (pointer == 1){
                 System.out.println("Какого персонажа хотите посмотреть?");
@@ -42,10 +44,10 @@ public class PreparationForHike {
                 Visual.MyInventar(player.get(choice));
                 Equip.Equipment(player.get(choice));
                 }else if (pointer == 2){
-                System.out.println("Какой персонаж, будет покупать");
-                choice= ChoosePlayer.Choose(player);
-                Shop.ShopChoice(player.get(choice));
+                Shop.ShopChoice(player.get(0));
                 }else if (pointer == 3){
+                Visual.BattleVisual(player);
+                }else if (pointer ==4){
                     break;
             }
         }
@@ -101,8 +103,7 @@ class Output implements Runnable {
     }
 
     public void Output() throws FileNotFoundException {
-        double dangerlabel = 0;
-        Scanner scanner = new Scanner(System.in);
+        double dangerlabel = 10;
         String reflaction;
 
         synchronized (listAdventure){
@@ -121,13 +122,11 @@ class Output implements Runnable {
             if (reflaction.equalsIgnoreCase("Положительное")) {
                 System.out.println((i + 1) + "/" + way);
                 System.out.println("Положительное действо");
-//                scanner.nextLine();
             } else if (reflaction.equalsIgnoreCase("Отрицательное")) {
                 System.out.println((i + 1) + "/" + way);
                 System.out.println("Отрицательное действо");
                 FightAlgorithm.Fight(player,EnemyList.List(dangerlabel,player));
-                dangerlabel *= 0.25;
-//                scanner.nextLine();
+                dangerlabel *= 0.1;
             } else if (reflaction.equalsIgnoreCase("Босс")) {
                 System.out.println((i + 1) + "/" + way);
                 System.out.println("Босс");
